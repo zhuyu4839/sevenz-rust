@@ -1,0 +1,139 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'sevenz-rust'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=sevenz-rust"
+                ],
+                "filter": {
+                    "name": "sevenz-rust",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug example 'decompress'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--example=decompress",
+                    "--package=sevenz-rust"
+                ],
+                "filter": {
+                    "name": "decompress",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in example 'decompress'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--example=decompress",
+                    "--package=sevenz-rust"
+                ],
+                "filter": {
+                    "name": "decompress",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug example 'compress'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--example=compress",
+                    "--package=sevenz-rust"
+                ],
+                "filter": {
+                    "name": "compress",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in example 'compress'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--example=compress",
+                    "--package=sevenz-rust"
+                ],
+                "filter": {
+                    "name": "compress",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'decompress_encrypted_tests'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=decompress_encrypted_tests",
+                    "--package=sevenz-rust"
+                ],
+                "filter": {
+                    "name": "decompress_encrypted_tests",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'decompression_tests'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=decompression_tests",
+                    "--package=sevenz-rust"
+                ],
+                "filter": {
+                    "name": "decompression_tests",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
