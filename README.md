@@ -1,7 +1,8 @@
 [![Crate](https://img.shields.io/crates/v/sevenz-rust.svg)](https://crates.io/crates/sevenz-rust)
  [![Documentation](https://docs.rs/sevenz-rust/badge.svg)](https://docs.rs/sevenz-rust)
  
-This project is a 7z compressor/decompressor written in pure rust.<br/>
+This project is a 7z compressor/decompressor written in pure rust, based on [sevenz-rust](https://github.com/dyz1990/sevenz-rust) v0.6.1, 
+with improvements aimed at speeding up the decompression of encrypted files.<br/>
 And it's very much inspired by the [apache commons-compress](https://commons.apache.org/proper/commons-compress/) project.<br/>
 
 The LZMA/LZMA2 decoder and all filters code was ported from [tukaani xz for java](https://tukaani.org/xz/java.html)

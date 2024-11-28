@@ -6,7 +6,7 @@ use crate::Password;
 use aes::cipher::{generic_array::GenericArray, BlockDecryptMut, BlockEncryptMut, KeyIvInit};
 use lzma_rust::CountingWriter;
 use rand::Rng;
-use sha2::Digest;
+use ring::digest::{Context, SHA256};
 
 type Aes256CbcDec = cbc::Decryptor<aes::Aes256>;
 
@@ -140,12 +140,12 @@ fn get_aes_key(properties: &[u8], password: &[u8]) -> Result<([u8; 32], [u8; 16]
         aes_key[salt_size..n + salt_size].copy_from_slice(&password[0..n]);
         aes_key
     } else {
-        let mut sha = sha2::Sha256::default();
+        let mut sha = Context::new(&SHA256);
         let mut extra = [0u8; 8];
         for _ in 0..(1u32 << num_cycles_power) {
             sha.update(&salt);
             sha.update(password);
-            sha.update(extra);
+            sha.update(&extra);
             for item in &mut extra {
                 *item = item.wrapping_add(1);
                 if *item != 0 {
@@ -153,7 +153,8 @@ fn get_aes_key(properties: &[u8], password: &[u8]) -> Result<([u8; 32], [u8; 16]
                 }
             }
         }
-        sha.finalize().into()
+        sha.finish().as_ref().try_into()
+            .map_err(|_| crate::Error::other("AES256 sha256 hashing failed"))?
     };
     Ok((aes_key, iv))
 }
@@ -367,13 +368,13 @@ mod tests {
     #[test]
     fn test_aes_codec() {
         let mut encoded = vec![];
-        let mut writer = CountingWriter::new(&mut encoded);
+        let writer = CountingWriter::new(&mut encoded);
         let pwd: Password = "1234".into();
         let options = AesEncoderOptions::new(pwd.clone());
         let mut enc = Aes256Sha256Encoder::new(writer, &options).unwrap();
         let original = include_bytes!("./aes256sha256.rs");
         enc.write_all(original).expect("encode data");
-        enc.write(&[]);
+        let _ = enc.write(&[]);
 
         let mut encoded_data = &encoded[..];
         let mut dec =
@@ -381,7 +382,7 @@ mod tests {
                 .unwrap();
 
         let mut decoded = vec![];
-        std::io::copy(&mut dec, &mut decoded);
+        let _ = std::io::copy(&mut dec, &mut decoded);
         assert_eq!(&decoded[..original.len()], &original[..]);
     }
 }

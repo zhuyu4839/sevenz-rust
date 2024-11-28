@@ -58,7 +58,7 @@ version = "0.8"
 optional = true
 
 [dependencies.bit-set]
-version = "0.6.0"
+version = "0.8"
 
 [dependencies.byteorder]
 version = "1.5"
@@ -72,34 +72,34 @@ version = "0.1"
 optional = true
 
 [dependencies.crc]
-version = "3.0.1"
+version = "3.2"
 
 [dependencies.filetime_creation]
 version = "0.2"
 
 [dependencies.lzma-rust]
-version = "0.1.7"
+version = "0.1"
 default-features = false
 
 [dependencies.nt-time]
-version = "0.8.0"
+version = "0.10"
 
 [dependencies.rand]
 version = "0.8"
 optional = true
 
-[dependencies.sha2]
-version = "^0.10"
+[dependencies.ring]
+version = "0.17"
 
 [dependencies.zstd]
-version = "0.13.0"
+version = "0.13"
 optional = true
 
 [dev-dependencies.rand]
 version = "0.8"
 
 [dev-dependencies.tempfile]
-version = "3.8.1"
+version = "3.14"
 
 [features]
 aes256 = [
@@ -110,6 +110,9 @@ aes256 = [
 bzip2 = ["dep:bzip2"]
 compress = ["lzma-rust/encoder"]
 default = ["compress"]
+
+[dev-dependencies]
+anyhow = "1"
 
 [target."cfg(target_arch = \"wasm32\")".dependencies.js-sys]
 version = "0.3.66"
