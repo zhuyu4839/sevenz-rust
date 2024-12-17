@@ -64,7 +64,7 @@ version = "0.8"
 version = "1.5"
 
 [dependencies.bzip2]
-version = "0.4.4"
+version = "0.5.0"
 optional = true
 
 [dependencies.cbc]
